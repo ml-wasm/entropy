@@ -1,0 +1,3 @@
+[submodule "dependencies/linalg"]
+	path = dependencies/linalg
+	url = https://github.com/wasml/linalg

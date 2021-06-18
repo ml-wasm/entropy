@@ -21,7 +21,7 @@ ndarray = {version = "0.15", features = ["serde"]}
 serde = {version = "1.0", features = ["derive"]}
 wasm-bindgen = {version = "0.2", features = ["serde-serialize"]}
 wee_alloc = {version = "0.4", optional = true}
-linalg = {git="https://github.com/wasml/linalg", branch="master", default-features = false}
+linalg = {path="./dependencies/linalg", default-features = false}
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.13"
