@@ -4,7 +4,7 @@ import init, {
   DataFrame,
   ColumnType,
   SeriesSTR,
-} from "../pkg/dataframes.js";
+} from "../pkg/entropy.js";
 
 (async () => {
   await init();
