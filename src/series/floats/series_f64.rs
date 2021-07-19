@@ -1,8 +1,8 @@
 use super::SeriesF64;
 use crate::dataframe::ColumnType;
-use linalg::one_dimensional::floats::Floats1d;
-// use serde::{Deserialize, Serialize};
+use linalg::vectors::floats::FloatsVector;
 use wasm_bindgen::prelude::*;
+// use serde::{Deserialize, Serialize};
 
 #[wasm_bindgen]
 impl SeriesF64 {
@@ -10,7 +10,7 @@ impl SeriesF64 {
     pub fn new(name: JsValue, data: JsValue) -> SeriesF64 {
         let col_name = serde_wasm_bindgen::from_value(name).unwrap();
         let serde_data: Vec<f64> = serde_wasm_bindgen::from_value(data).unwrap();
-        let col_data = Floats1d::new(serde_data);
+        let col_data = FloatsVector::new(serde_data);
 
         SeriesF64 {
             name: col_name,
@@ -45,7 +45,7 @@ impl SeriesF64 {
         self.data.reverse();
     }
 
-    pub fn reversed(&self) -> Floats1d {
+    pub fn reversed(&self) -> FloatsVector {
         self.data.reversed()
     }
 
@@ -53,19 +53,19 @@ impl SeriesF64 {
         self.data.append(element);
     }
 
-    pub fn appended(&mut self, element: f64) -> Floats1d {
+    pub fn appended(&mut self, element: f64) -> FloatsVector {
         self.data.appended(element)
     }
 
     pub fn extend(&mut self, data_arr: JsValue) {
         let data_arr = serde_wasm_bindgen::from_value(data_arr).unwrap();
-        let ndarray_data_arr = Floats1d::new(data_arr);
+        let ndarray_data_arr = FloatsVector::new(data_arr);
         self.data.extend(ndarray_data_arr)
     }
 
-    pub fn extended(&mut self, data_arr: JsValue) -> Floats1d {
+    pub fn extended(&mut self, data_arr: JsValue) -> FloatsVector {
         let data_arr = serde_wasm_bindgen::from_value(data_arr).unwrap();
-        let ndarray_data_arr = Floats1d::new(data_arr);
+        let ndarray_data_arr = FloatsVector::new(data_arr);
         self.data.extended(ndarray_data_arr)
     }
 
@@ -73,7 +73,7 @@ impl SeriesF64 {
         self.data.insert(index, value);
     }
 
-    pub fn inserted(&mut self, index: usize, value: f64) -> Floats1d {
+    pub fn inserted(&mut self, index: usize, value: f64) -> FloatsVector {
         self.data.inserted(index, value)
     }
 

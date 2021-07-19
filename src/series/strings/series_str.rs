@@ -1,6 +1,6 @@
 use super::SeriesSTR;
 use crate::dataframe::ColumnType;
-use linalg::one_dimensional::strings::Strings1d;
+use linalg::vectors::strings::StringsVector;
 // use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
@@ -10,7 +10,7 @@ impl SeriesSTR {
     pub fn new(name: JsValue, data: JsValue) -> SeriesSTR {
         let col_name = serde_wasm_bindgen::from_value(name).unwrap();
         let serde_data: Vec<String> = serde_wasm_bindgen::from_value(data).unwrap();
-        let col_data = Strings1d::new(serde_data);
+        let col_data = StringsVector::new(serde_data);
 
         SeriesSTR {
             name: col_name,
@@ -57,7 +57,7 @@ impl SeriesSTR {
         self.data.reverse();
     }
 
-    pub fn reversed(&self) -> Strings1d {
+    pub fn reversed(&self) -> StringsVector {
         self.data.reversed()
     }
 
@@ -65,7 +65,7 @@ impl SeriesSTR {
         self.data.append(element);
     }
 
-    pub fn appended(&mut self, element: String) -> Strings1d {
+    pub fn appended(&mut self, element: String) -> StringsVector {
         self.data.appended(element)
     }
 
@@ -73,7 +73,7 @@ impl SeriesSTR {
         self.data.insert(index, value);
     }
 
-    pub fn inserted(&mut self, index: usize, value: String) -> Strings1d {
+    pub fn inserted(&mut self, index: usize, value: String) -> StringsVector {
         self.data.inserted(index, value)
     }
 
@@ -87,13 +87,13 @@ impl SeriesSTR {
 
     pub fn extend(&mut self, data_arr: JsValue) {
         let data_arr = serde_wasm_bindgen::from_value(data_arr).unwrap();
-        let ndarray_data_arr = Strings1d::new(data_arr);
+        let ndarray_data_arr = StringsVector::new(data_arr);
         self.data.extend(ndarray_data_arr)
     }
 
-    pub fn extended(&mut self, data_arr: JsValue) -> Strings1d {
+    pub fn extended(&mut self, data_arr: JsValue) -> StringsVector {
         let data_arr = serde_wasm_bindgen::from_value(data_arr).unwrap();
-        let ndarray_data_arr = Strings1d::new(data_arr);
+        let ndarray_data_arr = StringsVector::new(data_arr);
         self.data.extended(ndarray_data_arr)
     }
 

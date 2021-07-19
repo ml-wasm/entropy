@@ -1,6 +1,6 @@
 use super::SeriesI32;
 use crate::dataframe::ColumnType;
-use linalg::one_dimensional::integers::Integers1d;
+use linalg::vectors::integers::IntegersVector;
 // use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
@@ -10,7 +10,7 @@ impl SeriesI32 {
     pub fn new(name: JsValue, data: JsValue) -> SeriesI32 {
         let col_name = serde_wasm_bindgen::from_value(name).unwrap();
         let serde_data: Vec<i32> = serde_wasm_bindgen::from_value(data).unwrap();
-        let col_data = Integers1d::new(serde_data);
+        let col_data = IntegersVector::new(serde_data);
 
         SeriesI32 {
             name: col_name,
@@ -45,7 +45,7 @@ impl SeriesI32 {
         self.data.reverse();
     }
 
-    pub fn reversed(&self) -> Integers1d {
+    pub fn reversed(&self) -> IntegersVector {
         self.data.reversed()
     }
 
@@ -53,19 +53,19 @@ impl SeriesI32 {
         self.data.append(element);
     }
 
-    pub fn appended(&mut self, element: i32) -> Integers1d {
+    pub fn appended(&mut self, element: i32) -> IntegersVector {
         self.data.appended(element)
     }
 
     pub fn extend(&mut self, data_arr: JsValue) {
         let data_arr = serde_wasm_bindgen::from_value(data_arr).unwrap();
-        let ndarray_data_arr = Integers1d::new(data_arr);
+        let ndarray_data_arr = IntegersVector::new(data_arr);
         self.data.extend(ndarray_data_arr)
     }
 
-    pub fn extended(&mut self, data_arr: JsValue) -> Integers1d {
+    pub fn extended(&mut self, data_arr: JsValue) -> IntegersVector {
         let data_arr = serde_wasm_bindgen::from_value(data_arr).unwrap();
-        let ndarray_data_arr = Integers1d::new(data_arr);
+        let ndarray_data_arr = IntegersVector::new(data_arr);
         self.data.extended(ndarray_data_arr)
     }
 
@@ -73,7 +73,7 @@ impl SeriesI32 {
         self.data.insert(index, value);
     }
 
-    pub fn inserted(&mut self, index: usize, value: i32) -> Integers1d {
+    pub fn inserted(&mut self, index: usize, value: i32) -> IntegersVector {
         self.data.inserted(index, value)
     }
 

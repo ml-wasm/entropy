@@ -1,6 +1,6 @@
-use linalg::one_dimensional::strings::Strings1d;
 pub mod series_str;
 
+use linalg::vectors::strings::StringsVector;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
@@ -8,5 +8,5 @@ use wasm_bindgen::prelude::*;
 #[derive(Serialize, Deserialize)]
 pub struct SeriesSTR {
     name: String,
-    data: Strings1d,
+    data: StringsVector,
 }
