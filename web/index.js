@@ -55,7 +55,8 @@ const dataframeDemo = async () => {
   // console.log(df.columns());
   // console.log(df.dataTypes());
   console.log("DataFrame size");
-  // console.log(df.size());
+  console.log(df.rowsCount());
+  console.log(df.columnsCount());
 
   // console.log("DataFrame show Columns");
   // console.log(df.columns());

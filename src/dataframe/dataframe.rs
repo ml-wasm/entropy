@@ -290,7 +290,6 @@ pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
         .into_iter()
         .map(|x| x.to_string())
         .collect();
-
     let mut data_map: HashMap<String, Series> = HashMap::new();
     let mut rtc_map: HashMap<usize, Vec<String>> = HashMap::new();
     reader.records().for_each(|row| {
@@ -313,12 +312,13 @@ pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
             );
         })
     });
-
+    let num_cols = data_map.keys().len();
+    let num_rows = rtc_map[&0].len();
     // Ok(serde_wasm_bindgen::to_value(&data_map).unwrap())
     Ok(DataFrame {
         data: data_map,
         index: headers,
-        num_rows: 500,
-        num_cols: 4,
+        num_rows,
+        num_cols,
     })
 }

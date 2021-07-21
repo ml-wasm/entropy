@@ -18,6 +18,15 @@ impl SeriesI32 {
         }
     }
 
+    // pub fn new_rs(name: String, data: Vec<i32>) -> SeriesI32 {
+    //     let col_data = IntegersVector::new(data);
+
+    //     SeriesI32 {
+    //         name,
+    //         data: col_data,
+    //     }
+    // }
+
     #[wasm_bindgen(js_name = toJson)]
     pub fn to_json(&self) -> JsValue {
         let js_series = self;

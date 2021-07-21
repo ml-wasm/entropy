@@ -18,6 +18,15 @@ impl SeriesSTR {
         }
     }
 
+    // pub fn new_rs(name: String, data: Vec<String>) -> SeriesSTR {
+    //     let col_data = StringsVector::new(data);
+
+    //     SeriesSTR {
+    //         name,
+    //         data: col_data,
+    //     }
+    // }
+
     pub fn name(&self) -> String {
         self.name.clone()
     }
