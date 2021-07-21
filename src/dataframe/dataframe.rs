@@ -6,6 +6,7 @@ use super::Series;
 use crate::series::floats::SeriesF64;
 use crate::series::integers::SeriesI32;
 use crate::series::strings::SeriesSTR;
+use ndarray::Data;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -243,7 +244,7 @@ impl DataFrame {
 
     #[wasm_bindgen(getter,js_name = displayTable)]
     pub fn show_table(&self) -> js_sys::Array {
-        let n = self.index.len();
+        let n = self.num_rows();
         let array_col = js_sys::Array::new();
         let map = &self.data;
         for i in 0..n {
@@ -270,4 +271,54 @@ impl DataFrame {
 
         array_col
     }
+}
+
+#[wasm_bindgen(js_name = readcsv)]
+pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
+    let jsdata = wasm_bindgen_futures::JsFuture::from(data.text())
+        .await
+        .unwrap_throw();
+
+    let data = jsdata.as_string().unwrap_throw();
+
+    let mut reader = csv::Reader::from_reader(data.as_bytes());
+
+    let headers: Vec<String> = reader
+        .headers()
+        .unwrap_throw()
+        .clone()
+        .into_iter()
+        .map(|x| x.to_string())
+        .collect();
+
+    let mut data_map: HashMap<String, Series> = HashMap::new();
+    let mut rtc_map: HashMap<usize, Vec<String>> = HashMap::new();
+    reader.records().for_each(|row| {
+        let row_res = row.unwrap_throw();
+        row_res.iter().enumerate().for_each(|(index, value)| {
+            rtc_map
+                .entry(index)
+                .or_insert(Vec::new())
+                .push(value.to_string());
+        });
+
+        rtc_map.keys().for_each(|key| {
+            let col_name = headers[*key].clone();
+            data_map.insert(
+                headers[*key].clone(),
+                Series::Strings(SeriesSTR::new(
+                    serde_wasm_bindgen::to_value(&col_name).unwrap(),
+                    serde_wasm_bindgen::to_value(&rtc_map[key]).unwrap(),
+                )),
+            );
+        })
+    });
+
+    // Ok(serde_wasm_bindgen::to_value(&data_map).unwrap())
+    Ok(DataFrame {
+        data: data_map,
+        index: headers,
+        num_rows: 500,
+        num_cols: 4,
+    })
 }
