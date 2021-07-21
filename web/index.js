@@ -21,7 +21,7 @@ import init, {
   //   "%cDataFrame",
   //   "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
   // );
-  // dataframeDemo();
+  dataframeDemo();
   // console.groupEnd();
 })();
 
@@ -32,8 +32,10 @@ import init, {
 // window.hello = hello;
 
 const dataframeDemo = async () => {
-  const [fileHandle] = await window.showOpenFilePicker();
-  const file = await fileHandle.getFile();
+  // const [fileHandle] = await window.showOpenFilePicker();
+  // const file = await fileHandle.getFile();
+
+  let file = await fetch("../data/hwi.csv");
 
   // console.group("DataFrame");
 
