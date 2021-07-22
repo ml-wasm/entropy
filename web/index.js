@@ -62,7 +62,7 @@ const dataframeDemo = async () => {
   // console.log(df.columns());
 
   // console.log("DataFrame show Datatypes");
-  // console.log(df.dataTypes());
+  console.log(df.dataTypes());
 
   // console.log("DataFrame append series");
   // let sertest = new SeriesI32("Fruits", [9, 8, 9, 8]);

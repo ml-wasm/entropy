@@ -301,16 +301,60 @@ pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
                 .push(value.to_string());
         });
 
-        rtc_map.keys().for_each(|key| {
+        // rtc_map.keys().for_each(|key| {
+        // let mut flag: bool = false;
+        for key in rtc_map.keys() {
             let col_name = headers[*key].clone();
-            data_map.insert(
-                headers[*key].clone(),
-                Series::Strings(SeriesSTR::new(
-                    serde_wasm_bindgen::to_value(&col_name).unwrap(),
-                    serde_wasm_bindgen::to_value(&rtc_map[key]).unwrap(),
-                )),
-            );
-        })
+
+            let as_int = rtc_map[key][0].parse::<i32>();
+
+            if let Ok(x) = as_int {
+                let int_data: Vec<i32> = rtc_map[key]
+                    .iter()
+                    .map(|value| value.parse::<i32>().unwrap())
+                    .collect();
+
+                data_map.insert(
+                    headers[*key].clone(),
+                    Series::Integers(SeriesI32::new(
+                        serde_wasm_bindgen::to_value(&col_name).unwrap(),
+                        serde_wasm_bindgen::to_value(&int_data).unwrap(),
+                    )),
+                );
+                continue;
+            }
+
+            let as_float = rtc_map[key][0].parse::<f64>();
+
+            if let Ok(x) = as_float {
+                let float_data: Vec<f64> = rtc_map[key]
+                    .iter()
+                    .map(|value| value.parse::<f64>().unwrap())
+                    .collect();
+
+                data_map.insert(
+                    headers[*key].clone(),
+                    Series::Floats(SeriesF64::new(
+                        serde_wasm_bindgen::to_value(&col_name).unwrap(),
+                        serde_wasm_bindgen::to_value(&float_data).unwrap(),
+                    )),
+                );
+                continue;
+            }
+
+            let as_string = rtc_map[key][0].parse::<String>();
+
+            if let Ok(x) = as_string {
+                data_map.insert(
+                    headers[*key].clone(),
+                    Series::Strings(SeriesSTR::new(
+                        serde_wasm_bindgen::to_value(&col_name).unwrap(),
+                        serde_wasm_bindgen::to_value(&rtc_map[key]).unwrap(),
+                    )),
+                );
+                continue;
+            }
+        }
     });
     let num_cols = data_map.keys().len();
     let num_rows = rtc_map[&0].len();
