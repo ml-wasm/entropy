@@ -8,8 +8,11 @@ const FeatureList = [
     Svg: require("../../static/img/undraw_docusaurus_mountain.svg").default,
     description: (
       <>
-        <code>Series</code> in Entropy utilize the ndarray implementation which
-        makes it much faster when compared to its javascript counterparts.
+        <code>Series</code> in Entropy use{" "}
+        <a target="_blank" href="https://github.com/wasml/linalg">
+          wasml/linalg
+        </a>{" "}
+        <code>Vectors</code> implementation.
       </>
     ),
   },

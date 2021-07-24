@@ -18,7 +18,7 @@ function HomepageHeader() {
             className="button button--secondary button--lg"
             to="/entropy/docs"
           >
-            Entropy Tutorial
+            Entropy Quick Start 🔥
           </Link>
         </div>
       </div>

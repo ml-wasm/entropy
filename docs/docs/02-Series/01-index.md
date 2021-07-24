@@ -13,7 +13,7 @@ Series contains the series name and the internal vector representation using the
   operations.
 - [SeriesSTR](04-seriesstr.md): Used to represent a Series of strings.
 
-:::warning
+:::warning Limited Type Support
 Other types not supported yet, will be implemented in the
 future.
 :::
