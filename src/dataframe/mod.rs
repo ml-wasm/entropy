@@ -28,6 +28,5 @@ pub struct DataFrame {
     data: HashMap<String, Series>,
     index: Vec<String>,
     num_rows: usize,
-    num_cols: usize
+    num_cols: usize,
 }
-
