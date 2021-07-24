@@ -1,9 +1,9 @@
-use crate::series::integers::SeriesI32;
-use crate::series::floats::SeriesF64;
-use crate::series::strings::SeriesSTR;
 use super::ColumnType;
 use super::DataFrame;
 use super::Series;
+use crate::series::floats::SeriesF64;
+use crate::series::integers::SeriesI32;
+use crate::series::strings::SeriesSTR;
 use ndarray::Data;
 use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
@@ -357,7 +357,7 @@ pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
     });
     let num_cols = data_map.keys().len();
     let num_rows = rtc_map[&0].len();
-    // Ok(serde_wasm_bindgen::to_value(&data_map).unwrap())
+
     Ok(DataFrame {
         data: data_map,
         index: headers,

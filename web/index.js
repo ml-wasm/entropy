@@ -10,19 +10,19 @@ import init, {
 (async () => {
   await init();
 
-  // console.group(
-  //   "%cSeries",
-  //   "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
-  // );
-  // seriesDemo();
-  // console.groupEnd();
+  console.group(
+    "%cSeries",
+    "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
+  );
+  seriesDemo();
+  console.groupEnd();
 
-  // console.group(
-  //   "%cDataFrame",
-  //   "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
-  // );
+  console.group(
+    "%cDataFrame",
+    "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
+  );
   dataframeDemo();
-  // console.groupEnd();
+  console.groupEnd();
 })();
 
 // function hello() {
