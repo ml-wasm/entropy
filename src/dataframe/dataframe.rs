@@ -1,12 +1,11 @@
-use std::collections::HashMap;
-
+use crate::series::integers::SeriesI32;
+use crate::series::floats::SeriesF64;
+use crate::series::strings::SeriesSTR;
 use super::ColumnType;
 use super::DataFrame;
 use super::Series;
-use crate::series::floats::SeriesF64;
-use crate::series::integers::SeriesI32;
-use crate::series::strings::SeriesSTR;
 use ndarray::Data;
+use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
