@@ -1,0 +1,1 @@
+(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[913],{8423:function(a){"use strict";a.exports=JSON.parse('{"allTagsPath":"/entropy/blog/tags","slug":"hola","name":"hola","count":1,"permalink":"/entropy/blog/tags/hola"}')}}]);
