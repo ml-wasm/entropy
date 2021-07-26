@@ -40,7 +40,8 @@ Some handy methods to work with the Series.
 ```js
 // Return Json representation of Series
     let s = new SeriesI32("Fibonacci", [0, 1, 1, 2]);
-    console.log(s.toJson()); // {name: "Fibonacci", data: Array(4)}
+    console.log(s.toJson());
+    // {name: "Fibonacci", data: Array(4)}
 
 // Return String Series Representation
     console.log(s.display)
