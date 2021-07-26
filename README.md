@@ -6,6 +6,9 @@ Javascript library** powered by WebAssembly, written in Rust.
 This project is a part of a larger project called [wasml](https://www.github.com/ml-wasm),
 which aims to provide a complete machine learning ecosystem in JavaScript.
 
+## Documentation
+[Entropy](https://ml-wasm.github.io/entropy/)
+
 ## Installing the package
 
 _Coming Soon_
