@@ -10,12 +10,12 @@ import init, {
 (async () => {
   await init();
 
-  console.group(
-    "%cSeries",
-    "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
-  );
-  seriesDemo();
-  console.groupEnd();
+  // console.group(
+  //   "%cSeries",
+  //   "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
+  // );
+  // seriesDemo();
+  // console.groupEnd();
 
   console.group(
     "%cDataFrame",
@@ -39,53 +39,59 @@ const dataframeDemo = async () => {
 
   // console.group("DataFrame");
 
-  // let sera = new SeriesI32("Apples", [1, 2, 3, 4]);
-  // let sero = new SeriesF64("Orange", [1.1, 2.1, 3.1, 4.1]);
-  // let serb = new SeriesSTR("Banana", ["ban", "nan", "qs", "rty"]);
+  // let s1 = new SeriesI32("Apple", [1, 2, 3, 4]);
+  // let s2 = new SeriesF64("Orange", [1.1, 2.1, 3.1, 4.1]);
+  // let s3 = new SeriesSTR("Banana", ["ba", "na", "na", "na"]);
 
-  // console.log("DataFrame");
-  // let df = new DataFrame([sera.toJson(), sero.toJson(), serb.toJson()]);
+  // // console.log("DataFrame");
+  // let df = new DataFrame([s1.toJson(), s2.toJson(), s3.toJson()]);
   // console.table(df.displayTable);
 
   // console.log(await readcsv(file));
 
   let df = await readcsv(file);
-  console.log(df.columns());
-  console.table(df.displayTable);
+  // console.log(df.columns());
+  // console.table(df.displayTable);
   // console.log(df.columns());
   // console.log(df.dataTypes());
   console.log("DataFrame size");
   console.log(df.rowsCount());
   console.log(df.columnsCount());
 
-  // console.log("DataFrame show Columns");
-  // console.log(df.columns());
+  console.log("DataFrame show Columns");
+  console.log(df.columns());
 
-  // console.log("DataFrame show Datatypes");
+  console.log("DataFrame show Datatypes");
   console.log(df.dataTypes());
 
-  // console.log("DataFrame append series");
-  // let sertest = new SeriesI32("Fruits", [9, 8, 9, 8]);
-  // df.append(ColumnType.INTEGER, sertest.toJson());
-  // console.log(df.display);
+  console.log("DataFrame append series");
+  let sertest = new SeriesI32("Fruits", [9, 8, 9, 8]);
+  df.append(ColumnType.INTEGER, sertest.toJson());
+  console.log(df.display);
 
-  // console.log("DataFrame loc get series with col name");
-  // console.log(df.loc("Banana"));
+  console.log("DataFrame loc get series with col name");
+  console.log(df.loc("Banana"));
 
-  // console.log("DataFrame ilor get row");
-  // console.log(df.ilocr(2));
+  console.log("DataFrame ilor get row");
+  console.log(df.ilocr(2));
 
-  // console.log("DataFrame iloc get col");
-  // console.log(df.ilocc(1));
+  console.log("DataFrame iloc get col");
+  console.log(df.ilocc(1));
 
-  // console.group("DataFrame Math operations");
-  // // console.log("DataFrame min");
-  // console.log(df.min("Apples"));
-  // console.log(df.maxColumns());
-  // console.log(df.meanColumns());
-  // console.groupEnd();
+  console.group("DataFrame Math operations");
+  // console.log("DataFrame min");
+  console.log(df.minColumns());
+  console.log(df.maxColumns());
+  console.log(df.meanColumns());
+  console.log(df.medianColumns());
 
-  // console.groupEnd();
+  console.log(df.variance("Apple", 1));
+  console.log(df.varianceColumns(1));
+  console.log(df.standardDeviation("Orange", 1));
+  console.log(df.standardDeviationColumns(1));
+  console.groupEnd();
+
+  console.groupEnd();
 };
 
 window.dataframeDemo = dataframeDemo;

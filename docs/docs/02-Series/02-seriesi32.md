@@ -5,7 +5,7 @@ title: Series - Integer
 `SeriesI32` is a Series where the type of the vector is `IntegersVector` and the Series name is a string.
 
 The following scripts assume that you have imported the `SeriesI32` object
-from the package and set up the threads as explained in [getting started](../).
+from the package as explained in [getting started](../).
 
 :::note 
 Use `.display` on ***SeriesI32*** to view the Series.

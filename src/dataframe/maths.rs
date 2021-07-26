@@ -47,11 +47,11 @@ impl DataFrame {
             match ser {
                 Series::Floats(value) => {
                     res.entry(name.clone()).or_insert(value.min());
-                },
+                }
                 Series::Integers(value) => {
                     res.entry(name.clone()).or_insert(value.min() as f64);
-                },
-                _ => { }
+                }
+                _ => {}
             }
         }
 
@@ -67,11 +67,11 @@ impl DataFrame {
             match &ser {
                 Series::Floats(value) => {
                     res.entry(name.clone()).or_insert(value.max());
-                },
+                }
                 Series::Integers(value) => {
                     res.entry(name.clone()).or_insert(value.max() as f64);
-                },
-                _ => { }
+                }
+                _ => {}
             }
         }
 
@@ -86,7 +86,7 @@ impl DataFrame {
             match ser {
                 Series::Floats(value) => {
                     res.entry(name.clone()).or_insert(value.mean());
-                },
+                }
                 Series::Integers(value) => {
                     res.entry(name.clone()).or_insert(value.mean());
                 }
@@ -96,7 +96,7 @@ impl DataFrame {
 
         serde_wasm_bindgen::to_value(&res).unwrap()
     }
-    
+
     /// Returns median of all columns
     #[wasm_bindgen(js_name = medianColumns)]
     pub fn median_columns(&self) -> JsValue {
@@ -106,10 +106,10 @@ impl DataFrame {
             match &ser {
                 Series::Floats(value) => {
                     res.entry(name.clone()).or_insert(value.median());
-                },
+                }
                 Series::Integers(value) => {
                     res.entry(name.clone()).or_insert(value.median());
-                },
+                }
                 _ => {}
             }
         }
@@ -135,17 +135,20 @@ impl DataFrame {
     }
 
     /// Returns variance of columns
+    #[wasm_bindgen(js_name = varianceColumns)]
     pub fn variance_columns(&self, degree_of_freedom: f64) -> JsValue {
         let mut res: HashMap<String, f64> = HashMap::new();
 
         for (name, ser) in &self.data {
             match &ser {
                 Series::Floats(value) => {
-                    res.entry(name.clone()).or_insert(value.variance(degree_of_freedom));
-                },
+                    res.entry(name.clone())
+                        .or_insert(value.variance(degree_of_freedom));
+                }
                 Series::Integers(value) => {
-                    res.entry(name.clone()).or_insert(value.variance(degree_of_freedom));
-                },
+                    res.entry(name.clone())
+                        .or_insert(value.variance(degree_of_freedom));
+                }
                 _ => {}
             }
         }
@@ -171,17 +174,20 @@ impl DataFrame {
         panic!("Column name {} not found", col_name)
     }
 
+    #[wasm_bindgen(js_name = standardDeviationColumns)]
     pub fn std_dev_columns(&self, degree_of_freedom: f64) -> JsValue {
         let mut res: HashMap<String, f64> = HashMap::new();
 
         for (name, ser) in &self.data {
             match &ser {
                 Series::Floats(value) => {
-                    res.entry(name.clone()).or_insert(value.std_dev(degree_of_freedom));
-                },
+                    res.entry(name.clone())
+                        .or_insert(value.std_dev(degree_of_freedom));
+                }
                 Series::Integers(value) => {
-                    res.entry(name.clone()).or_insert(value.std_dev(degree_of_freedom));
-                },
+                    res.entry(name.clone())
+                        .or_insert(value.std_dev(degree_of_freedom));
+                }
                 _ => {}
             }
         }
