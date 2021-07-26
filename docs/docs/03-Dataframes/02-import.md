@@ -18,7 +18,7 @@ With Entropy you can build `Dataframes` with CSV.
     // Get the file via fetch
 ```
 :::note
-Other methods to import file in JavaScript is also accepted
+Other methods to import files in JavaScript are also accepted
 
 ```js
     const [fileHandle] = await window.showOpenFilePicker();

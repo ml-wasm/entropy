@@ -5,20 +5,21 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 module.exports = {
   title: "wasml/entropy",
   tagline: "Dataframes powered by WebAssembly",
-  url: "https://your-docusaurus-test-site.com",
+  url: "https://github.com/ml-wasm",
   baseUrl: "/entropy/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  // favicon: "img/favicon.ico",
-  organizationName: "wasml",
+  favicon: "img/wasml.png",
+  organizationName: "ml-wasm",
   projectName: "entropy",
+  trailingSlash: false,
   themeConfig: {
     navbar: {
       title: "wasml/entropy",
-      // logo: {
-      //   alt: 'My Site Logo',
-      //   src: 'img/logo.svg',
-      // },
+      logo: {
+        alt: "My Site Logo",
+        src: "img/wasml.png",
+      },
       items: [
         {
           type: "doc",
