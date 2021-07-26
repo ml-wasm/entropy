@@ -5,7 +5,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 module.exports = {
   title: "wasml/entropy",
   tagline: "Dataframes powered by WebAssembly",
-  url: "https://github.com/ml-wasm",
+  url: "https://ml-wasm.github.io.",
   baseUrl: "/entropy/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
