@@ -3,7 +3,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: "wasml/entropy",
+  title: "Entropy",
   tagline: "Dataframes powered by WebAssembly",
   url: "https://ml-wasm.github.io.",
   baseUrl: "/entropy/",

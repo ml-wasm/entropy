@@ -9,8 +9,8 @@ const FeatureList = [
     description: (
       <>
         <code>Series</code> in Entropy use{" "}
-        <a target="_blank" href="https://github.com/wasml/linalg">
-          wasml/linalg
+        <a target="_blank" href="https://github.com/ml-wasm/linalg">
+          ml-wasm/linalg
         </a>{" "}
         <code>Vectors</code> implementation.
       </>
