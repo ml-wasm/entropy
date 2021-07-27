@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
     <channel>
-        <title>wasml/entropy Blog</title>
+        <title>Entropy Blog</title>
         <link>https://ml-wasm.github.io./entropy/blog</link>
-        <description>wasml/entropy Blog</description>
+        <description>Entropy Blog</description>
         <lastBuildDate>Tue, 28 May 2019 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
