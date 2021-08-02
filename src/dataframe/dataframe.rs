@@ -8,6 +8,17 @@ use ndarray::Data;
 use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
 
+impl DataFrame {
+    pub fn new_rs(index: Vec<String>, data: HashMap<String, Series>, num_rows: usize, num_cols: usize) -> DataFrame {
+        DataFrame {
+            index,
+            data,
+            num_rows,
+            num_cols
+        }
+    }
+}
+
 #[wasm_bindgen]
 impl DataFrame {
     #[wasm_bindgen(constructor)]

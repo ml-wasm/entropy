@@ -4,6 +4,17 @@ use linalg::vectors::strings::StringsVector;
 // use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
+impl SeriesSTR {
+     pub fn new_rs(name: String, data: Vec<String>) -> SeriesSTR {
+         let col_data = StringsVector::new(data);
+
+         SeriesSTR {
+             name,
+             data: col_data,
+         }
+     }
+}
+
 #[wasm_bindgen]
 impl SeriesSTR {
     #[wasm_bindgen(constructor)]
@@ -18,15 +29,7 @@ impl SeriesSTR {
         }
     }
 
-    // pub fn new_rs(name: String, data: Vec<String>) -> SeriesSTR {
-    //     let col_data = StringsVector::new(data);
-
-    //     SeriesSTR {
-    //         name,
-    //         data: col_data,
-    //     }
-    // }
-
+    
     pub fn name(&self) -> String {
         self.name.clone()
     }

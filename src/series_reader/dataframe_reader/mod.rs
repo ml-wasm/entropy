@@ -1,7 +1,14 @@
+use crate::dataframe::Series;
 use crate::dataframe::DataFrame;
-use super::integers::SeriesI32Reader;
+use crate::series::floats::SeriesF64;
+use crate::series::integers::SeriesI32;
+use crate::series::strings::SeriesSTR;
 use super::floats::SeriesF64Reader;
+use super::integers::SeriesI32Reader;
 use super::strings::SeriesStrReader;
+use linalg::vectors::floats::FloatsVector;
+use linalg::vectors::integers::IntegersVector;
+use linalg::vectors::strings::StringsVector;
 use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
@@ -55,7 +62,7 @@ impl DataFrameReader {
                 let as_int = rtc_map[key][0].parse::<i32>();
                 if let Ok(x) = as_int {
                     let mut int_vec: Vec<Option<i32>> = Vec::new();
-                    for int_data in rtc_map[key].clone() {
+                    for int_data in &rtc_map[key] {
                         match int_data.parse::<i32>() {
                             Ok(i) => int_vec.push(Some(i)),
                             Err(_) => int_vec.push(None),
@@ -69,7 +76,7 @@ impl DataFrameReader {
                 let as_float = rtc_map[key][0].parse::<f32>();
                 if let Ok(x) = as_float {
                     let mut float_vec: Vec<Option<f64>> = Vec::new();
-                    for float_data in rtc_map[key].clone() {
+                    for float_data in &rtc_map[key] {
                         match float_data.parse::<f64>() {
                             Ok(i) => float_vec.push(Some(i)),
                             Err(_) => float_vec.push(None)
@@ -83,7 +90,7 @@ impl DataFrameReader {
                 let as_str = rtc_map[key][0].parse::<String>();
                 if let Ok(x) = as_float {
                     let mut str_vec: Vec<Option<String>> = Vec::new();
-                    for str_data in rtc_map[key].clone() {
+                    for str_data in &rtc_map[key] {
                         match str_data.parse::<String>() {
                             Ok(i) => str_vec.push(Some(i)),
                             Err(_) => str_vec.push(None)
@@ -107,5 +114,27 @@ impl DataFrameReader {
         })
     }
 
+    pub fn to_dataframe(&self) -> DataFrame {
+        let mut data: HashMap<String, Series> = HashMap::new();
+        let mut index: Vec<String> = Vec::new();
 
+        for (name, series_reader) in &self.data {
+            match &series_reader {
+                &SeriesReader::Floats(floats) => {
+                    index.push(floats.get_name());
+                    data.insert(floats.get_name(), Series::Floats(floats.to_series()));
+                },
+                &SeriesReader::Integers(integers) => {
+                    index.push(integers.get_name());
+                    data.insert(integers.get_name(), Series::Integers(integers.to_series()));
+                }
+                &SeriesReader::Strings(strings) => {
+                    index.push(strings.get_name());
+                    data.insert(strings.get_name(), Series::Strings(strings.to_series()));
+                }
+            }
+        }
+
+        DataFrame::new_rs(index, data, self.num_rows, self.num_cols)
+    } 
 }

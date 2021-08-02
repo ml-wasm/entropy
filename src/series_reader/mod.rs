@@ -1,4 +1,4 @@
-mod floats;
-mod integers;
-mod strings;
-mod dataframe_reader;
+pub mod floats;
+pub mod integers;
+pub mod strings;
+pub mod dataframe_reader;

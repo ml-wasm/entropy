@@ -4,6 +4,17 @@ use linalg::vectors::floats::FloatsVector;
 use wasm_bindgen::prelude::*;
 // use serde::{Deserialize, Serialize};
 
+impl SeriesF64 {
+    pub fn new_rs(name: String, data: Vec<f64>) -> SeriesF64 {
+        let col_data = FloatsVector::new(data);
+
+        SeriesF64 {
+            name,
+            data: col_data,
+        }
+    }
+}
+
 #[wasm_bindgen]
 impl SeriesF64 {
     #[wasm_bindgen(constructor)]
@@ -18,14 +29,7 @@ impl SeriesF64 {
         }
     }
 
-    // pub fn new_rs(name: String, data: Vec<f64>) -> SeriesF64 {
-    //     let col_data = FloatsVector::new(data);
-
-    //     SeriesF64 {
-    //         name,
-    //         data: col_data,
-    //     }
-    // }
+    
 
     #[wasm_bindgen(js_name = toJson)]
     pub fn to_json(&self) -> JsValue {
