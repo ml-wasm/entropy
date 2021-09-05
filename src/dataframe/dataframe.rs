@@ -4,17 +4,22 @@ use super::Series;
 use crate::series::floats::SeriesF64;
 use crate::series::integers::SeriesI32;
 use crate::series::strings::SeriesSTR;
-use ndarray::Data;
+
 use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
 
 impl DataFrame {
-    pub fn new_rs(index: Vec<String>, data: HashMap<String, Series>, num_rows: usize, num_cols: usize) -> DataFrame {
+    pub fn new_rs(
+        index: Vec<String>,
+        data: HashMap<String, Series>,
+        num_rows: usize,
+        num_cols: usize,
+    ) -> DataFrame {
         DataFrame {
             index,
             data,
             num_rows,
-            num_cols
+            num_cols,
         }
     }
 }
@@ -318,7 +323,7 @@ pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
 
             let as_int = rtc_map[key][0].parse::<i32>();
 
-            if let Ok(x) = as_int {
+            if let Ok(_x) = as_int {
                 let int_data: Vec<i32> = rtc_map[key]
                     .iter()
                     .map(|value| value.parse::<i32>().unwrap())
@@ -336,7 +341,7 @@ pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
 
             let as_float = rtc_map[key][0].parse::<f64>();
 
-            if let Ok(x) = as_float {
+            if let Ok(_x) = as_float {
                 let float_data: Vec<f64> = rtc_map[key]
                     .iter()
                     .map(|value| value.parse::<f64>().unwrap())
@@ -354,7 +359,7 @@ pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
 
             let as_string = rtc_map[key][0].parse::<String>();
 
-            if let Ok(x) = as_string {
+            if let Ok(_x) = as_string {
                 data_map.insert(
                     headers[*key].clone(),
                     Series::Strings(SeriesSTR::new(

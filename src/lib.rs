@@ -1,8 +1,8 @@
 use wasm_bindgen::prelude::*;
 
-mod dataframe;
-mod series;
-mod series_reader;
+pub mod dataframe;
+pub mod series;
+pub mod series_reader;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.

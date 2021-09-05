@@ -1,25 +1,19 @@
 use crate::series::integers::SeriesI32;
-use linalg::vectors::integers::IntegersVector;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
-
 
 #[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
-pub struct SeriesI32Reader
-{
+pub struct SeriesI32Reader {
     name: String,
     data: Vec<Option<i32>>,
 }
 
 impl SeriesI32Reader {
     pub fn new(name: String, data: Vec<Option<i32>>) -> SeriesI32Reader {
-        SeriesI32Reader {
-            name,
-            data
-        }
+        SeriesI32Reader { name, data }
     }
-    
+
     pub fn to_series(&self) -> SeriesI32 {
         let mut data_vec: Vec<i32> = Vec::new();
         data_vec.reserve(self.data.len());
@@ -27,7 +21,7 @@ impl SeriesI32Reader {
         for value in &self.data {
             match value {
                 Some(value) => data_vec.push(*value),
-                None => panic!("Null value encountered")
+                None => panic!("Null value encountered"),
             }
         }
 
