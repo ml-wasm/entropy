@@ -5,14 +5,14 @@ use linalg::vectors::strings::StringsVector;
 use wasm_bindgen::prelude::*;
 
 impl SeriesSTR {
-     pub fn new_rs(name: String, data: Vec<String>) -> SeriesSTR {
-         let col_data = StringsVector::new(data);
+    pub fn new_rs(name: String, data: Vec<String>) -> SeriesSTR {
+        let col_data = StringsVector::new(data);
 
-         SeriesSTR {
-             name,
-             data: col_data,
-         }
-     }
+        SeriesSTR {
+            name,
+            data: col_data,
+        }
+    }
 }
 
 #[wasm_bindgen]
@@ -29,9 +29,23 @@ impl SeriesSTR {
         }
     }
 
-    
+    #[wasm_bindgen(js_name = toJson)]
+    pub fn to_json(&self) -> JsValue {
+        let js_series = self;
+
+        serde_wasm_bindgen::to_value(&js_series).unwrap()
+    }
+
     pub fn name(&self) -> String {
         self.name.clone()
+    }
+
+    pub fn shape(&self) -> JsValue {
+        self.data.shape_to_js()
+    }
+
+    pub fn len(&self) -> usize {
+        self.data.len()
     }
 
     pub fn dtype(&self) -> ColumnType {
@@ -42,15 +56,9 @@ impl SeriesSTR {
         self.data.data_to_js()
     }
 
-    #[wasm_bindgen(js_name = toJson)]
-    pub fn to_json(&self) -> JsValue {
-        let js_series = self;
-
-        serde_wasm_bindgen::to_value(&js_series).unwrap()
-    }
-
-    pub fn len(&self) -> usize {
-        self.data.len()
+    #[wasm_bindgen(js_name = toString)]
+    pub fn to_string(&self) -> String {
+        self.data.to_string()
     }
 
     pub fn get(&self, index: usize) -> String {

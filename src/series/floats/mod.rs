@@ -1,5 +1,6 @@
-pub mod series_f64;
 pub mod maths;
+pub mod new;
+pub mod series_f64;
 
 use linalg::vectors::floats::FloatsVector;
 use serde::{Deserialize, Serialize};

@@ -315,8 +315,6 @@ pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
                 .push(value.to_string());
         });
 
-        // rtc_map.keys().for_each(|key| {
-        // let mut flag: bool = false;
         for key in rtc_map.keys() {
             let col_name = headers[*key].clone();
 

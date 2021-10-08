@@ -1,4 +1,5 @@
 pub mod math;
+pub mod new;
 pub mod series_i32;
 
 use linalg::vectors::integers::IntegersVector;

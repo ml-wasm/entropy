@@ -2,7 +2,6 @@ use super::SeriesF64;
 use crate::dataframe::ColumnType;
 use linalg::vectors::floats::FloatsVector;
 use wasm_bindgen::prelude::*;
-// use serde::{Deserialize, Serialize};
 
 impl SeriesF64 {
     pub fn new_rs(name: String, data: Vec<f64>) -> SeriesF64 {
@@ -29,8 +28,6 @@ impl SeriesF64 {
         }
     }
 
-    
-
     #[wasm_bindgen(js_name = toJson)]
     pub fn to_json(&self) -> JsValue {
         let js_series = self;
@@ -38,8 +35,25 @@ impl SeriesF64 {
         serde_wasm_bindgen::to_value(&js_series).unwrap()
     }
 
+    pub fn len(&self) -> usize {
+        self.data.len()
+    }
+
+    pub fn dtype(&self) -> ColumnType {
+        ColumnType::FLOAT
+    }
+
+    pub fn shape(&self) -> JsValue {
+        self.data.shape_to_js()
+    }
+
     pub fn data(&self) -> JsValue {
         self.data.data_to_js()
+    }
+
+    #[wasm_bindgen(js_name = toString)]
+    pub fn to_string(&self) -> String {
+        self.data.to_string()
     }
 
     pub fn get(&self, index: usize) -> f64 {
@@ -108,14 +122,6 @@ impl SeriesF64 {
         self.name = column_name;
 
         self.name.clone()
-    }
-
-    pub fn len(&self) -> usize {
-        self.data.len()
-    }
-
-    pub fn dtype(&self) -> ColumnType {
-        ColumnType::FLOAT
     }
 
     #[wasm_bindgen(getter,js_name = display)]

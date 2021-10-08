@@ -1,7 +1,6 @@
 use super::SeriesI32;
 use crate::dataframe::ColumnType;
 use linalg::vectors::integers::IntegersVector;
-// use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
 impl SeriesI32 {
@@ -36,8 +35,25 @@ impl SeriesI32 {
         serde_wasm_bindgen::to_value(&js_series).unwrap()
     }
 
+    pub fn len(&self) -> usize {
+        self.data.len()
+    }
+
+    pub fn shape(&self) -> JsValue {
+        self.data.shape_to_js()
+    }
+
+    pub fn dtype(&self) -> ColumnType {
+        ColumnType::INTEGER
+    }
+
     pub fn data(&self) -> JsValue {
-        return self.data.data_to_js();
+        self.data.data_to_js()
+    }
+
+    #[wasm_bindgen(js_name = toString)]
+    pub fn to_string(&self) -> String {
+        self.data.to_string()
     }
 
     pub fn get(&self, index: usize) -> i32 {
@@ -106,18 +122,6 @@ impl SeriesI32 {
         self.name = column_name;
 
         self.name.clone()
-    }
-
-    pub fn len(&self) -> usize {
-        self.data.len()
-    }
-
-    pub fn shape(&self) -> js_sys::Array {
-        self.data.shape()
-    }
-
-    pub fn dtype(&self) -> ColumnType {
-        ColumnType::INTEGER
     }
 
     #[wasm_bindgen(getter,js_name = display)]

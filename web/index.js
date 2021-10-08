@@ -1,13 +1,8 @@
 import init, {
   SeriesF64,
-  SeriesI32Reader,
   SeriesI32,
   DataFrame,
-  ColumnType,
   SeriesSTR,
-  DF_readcsv,
-  DataFrameReader,
-  readcsv,
 } from "../pkg/entropy.js";
 
 (async () => {
@@ -29,9 +24,6 @@ import init, {
 })();
 
 const dataframeDemo = async () => {
-  // const [fileHandle] = await window.showOpenFilePicker();
-  // const file = await fileHandle.getFile();
-
   let file = await fetch("../data/hwi.csv");
 
   console.group("DataFrame");
@@ -44,8 +36,9 @@ const dataframeDemo = async () => {
   let df = new DataFrame([sera.toJson(), sero.toJson(), serb.toJson()]);
 
   console.log(df.columns());
-  console.table(df.displayTable);
 
+  console.log(df.displayTable);
+  console.log(df.display);
   console.groupEnd();
 };
 
@@ -54,11 +47,26 @@ window.dataframeDemo = dataframeDemo;
 const seriesDemo = () => {
   console.group("SeriesI32");
 
-  let s = new SeriesI32("Fibonacci", [0, 1, 1, 2]);
+  let s1 = new SeriesI32("Fibonacci", [0, 1, 1, 2]);
+  let s2 = new SeriesF64("B", [0.3, 1.3, 1.3, 2.3]);
+  let s3 = new SeriesSTR("C", ["A", "A"]);
   console.log("SeriesI32");
-  console.log(s.data());
+  console.log(s1.data());
 
-  console.log(s.shape());
+  console.log(s1.shape());
+  console.log(s2.shape());
+  console.log(s3.shape());
+  console.log(s1.toString());
+  console.log(s2.toString());
+  console.log(s3.toString());
+  let s4 = SeriesI32.newWithElement("Dion", 5, 7);
+  let s5 = SeriesF64.newWithElement("Dion", 5, 7.5);
+  let s6 = SeriesI32.newWithSimpleFunc(
+    "Pinto",
+    10,
+    (max = 10, min = 2) => Math.random() * (max - min) + min
+  );
+  console.log(s6.data());
 
   // console.log("SeriesI32 length");
   // console.log(s.len());
