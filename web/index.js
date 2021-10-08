@@ -1,35 +1,32 @@
 import init, {
   SeriesF64,
+  SeriesI32Reader,
   SeriesI32,
   DataFrame,
   ColumnType,
   SeriesSTR,
+  DF_readcsv,
+  DataFrameReader,
   readcsv,
 } from "../pkg/entropy.js";
 
 (async () => {
   await init();
 
-  // console.group(
-  //   "%cSeries",
-  //   "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
-  // );
-  // seriesDemo();
-  // console.groupEnd();
-
   console.group(
-    "%cDataFrame",
+    "%cSeries",
     "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
   );
-  dataframeDemo();
+  seriesDemo();
   console.groupEnd();
+
+  // console.group(
+  //   "%cDataFrame",
+  //   "color: white; background-color: darkblue; padding: 5px 10px; border-radius: 5px"
+  // );
+  // dataframeDemo();
+  // console.groupEnd();
 })();
-
-// function hello() {
-//   alert("hello");
-// }
-
-// window.hello = hello;
 
 const dataframeDemo = async () => {
   // const [fileHandle] = await window.showOpenFilePicker();
@@ -37,59 +34,17 @@ const dataframeDemo = async () => {
 
   let file = await fetch("../data/hwi.csv");
 
-  // console.group("DataFrame");
+  console.group("DataFrame");
 
-  // let s1 = new SeriesI32("Apple", [1, 2, 3, 4]);
-  // let s2 = new SeriesF64("Orange", [1.1, 2.1, 3.1, 4.1]);
-  // let s3 = new SeriesSTR("Banana", ["ba", "na", "na", "na"]);
+  let sera = new SeriesI32("Apples", [1, 2, 3, 4]);
+  let sero = new SeriesF64("Orange", [1.1, 2.1, 3.1, 4.1]);
+  let serb = new SeriesSTR("Banana", ["ban", "nan", "qs", "rty"]);
 
-  // // console.log("DataFrame");
-  // let df = new DataFrame([s1.toJson(), s2.toJson(), s3.toJson()]);
-  // console.table(df.displayTable);
+  console.log("DataFrame");
+  let df = new DataFrame([sera.toJson(), sero.toJson(), serb.toJson()]);
 
-  // console.log(await readcsv(file));
-
-  let df = await readcsv(file);
-  // console.log(df.columns());
-  // console.table(df.displayTable);
-  // console.log(df.columns());
-  // console.log(df.dataTypes());
-  console.log("DataFrame size");
-  console.log(df.rowsCount());
-  console.log(df.columnsCount());
-
-  console.log("DataFrame show Columns");
   console.log(df.columns());
-
-  console.log("DataFrame show Datatypes");
-  console.log(df.dataTypes());
-
-  console.log("DataFrame append series");
-  let sertest = new SeriesI32("Fruits", [9, 8, 9, 8]);
-  df.append(ColumnType.INTEGER, sertest.toJson());
-  console.log(df.display);
-
-  console.log("DataFrame loc get series with col name");
-  console.log(df.loc("Banana"));
-
-  console.log("DataFrame ilor get row");
-  console.log(df.ilocr(2));
-
-  console.log("DataFrame iloc get col");
-  console.log(df.ilocc(1));
-
-  console.group("DataFrame Math operations");
-  // console.log("DataFrame min");
-  console.log(df.minColumns());
-  console.log(df.maxColumns());
-  console.log(df.meanColumns());
-  console.log(df.medianColumns());
-
-  console.log(df.variance("Apple", 1));
-  console.log(df.varianceColumns(1));
-  console.log(df.standardDeviation("Orange", 1));
-  console.log(df.standardDeviationColumns(1));
-  console.groupEnd();
+  console.table(df.displayTable);
 
   console.groupEnd();
 };
@@ -102,6 +57,8 @@ const seriesDemo = () => {
   let s = new SeriesI32("Fibonacci", [0, 1, 1, 2]);
   console.log("SeriesI32");
   console.log(s.data());
+
+  console.log(s.shape());
 
   // console.log("SeriesI32 length");
   // console.log(s.len());
@@ -184,7 +141,7 @@ const seriesDemo = () => {
   // console.log("SeriesI32 varience");
   // console.log(s.variance(1));
 
-  console.groupEnd();
+  // console.groupEnd();
 
   // console.groupEnd();
 

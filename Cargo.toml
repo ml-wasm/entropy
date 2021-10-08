@@ -23,6 +23,7 @@ wee_alloc = {version = "0.4", optional = true}
 js-sys = "0.3"
 wasm-bindgen-futures = "0.4.22"
 csv = "1.1"
+tera = "1.2.0"
 linalg = {path="./dependencies/linalg", default-features = false}
 
 [dependencies.web-sys]
