@@ -256,6 +256,63 @@ impl DataFrame {
         res
     }
 
+    #[wasm_bindgen(js_name = head)]
+    pub fn head(&self,  value: Option<usize>) -> js_sys::Array {
+        let df = js_sys::Array::new();
+        let map = &self.data;
+        for i in 0..value.unwrap_or(5) {
+            let array_row = js_sys::Array::new();
+            self.index.iter().for_each(|f| {
+                let ser = &map[f];
+                match ser {
+                    Series::Integers(x) => {
+                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+                        array_row.push(&val);
+                    }
+                    Series::Floats(x) => {
+                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+                        array_row.push(&val);
+                    }
+                    Series::Strings(x) => {
+                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+                        array_row.push(&val);
+                    }
+                };
+            });
+            df.push(&array_row);
+        }
+        df
+    }
+
+    #[wasm_bindgen(js_name = tail)]
+    pub fn tail(&self,  value: Option<usize>) -> js_sys::Array {
+        let n = self.num_rows();
+        let df = js_sys::Array::new();
+        let map = &self.data;
+        for i in (n - value.unwrap_or(5)..n).rev() {
+            let array_row = js_sys::Array::new();
+            self.index.iter().for_each(|f| {
+                let ser = &map[f];
+                match ser {
+                    Series::Integers(x) => {
+                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+                        array_row.push(&val);
+                    }
+                    Series::Floats(x) => {
+                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+                        array_row.push(&val);
+                    }
+                    Series::Strings(x) => {
+                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+                        array_row.push(&val);
+                    }
+                };
+            });
+            df.push(&array_row);
+        }
+        df
+    }
+
     #[wasm_bindgen(getter,js_name = displayTable)]
     pub fn show_table(&self) -> js_sys::Array {
         let n = self.num_rows();
