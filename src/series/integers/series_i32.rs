@@ -5,14 +5,14 @@ use linalg::vectors::integers::IntegersVector;
 use wasm_bindgen::prelude::*;
 
 impl SeriesI32 {
-     pub fn new_rs(name: String, data: Vec<i32>) -> SeriesI32 {
-         let col_data = IntegersVector::new(data);
+    pub fn new_rs(name: String, data: Vec<i32>) -> SeriesI32 {
+        let col_data = IntegersVector::new(data);
 
-         SeriesI32 {
-             name,
-             data: col_data,
-         }
-     }
+        SeriesI32 {
+            name,
+            data: col_data,
+        }
+    }
 }
 
 #[wasm_bindgen]
@@ -28,7 +28,7 @@ impl SeriesI32 {
             data: col_data,
         }
     }
-    
+
     #[wasm_bindgen(js_name = toJson)]
     pub fn to_json(&self) -> JsValue {
         let js_series = self;
@@ -110,6 +110,10 @@ impl SeriesI32 {
 
     pub fn len(&self) -> usize {
         self.data.len()
+    }
+
+    pub fn shape(&self) -> js_sys::Array {
+        self.data.shape()
     }
 
     pub fn dtype(&self) -> ColumnType {
