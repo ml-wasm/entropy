@@ -22,14 +22,17 @@ These methods are used to create new `SeriesF32`.
     let s = new SeriesF32("Grades", [9.5, 9.0, 7.8, 8.5]);
     console.log(s.display); 
     /*
-    ################
-    # Grades    #
-    ################
-    # 9.5          #
-    # 9.0          #
-    # 7.8          #
-    # 8.5          #
-    ################
+    +--------+
+    | Grades |
+    +--------+
+    | 9.5    |
+    +--------+
+    | 9      |
+    +--------+
+    | 7.8    |
+    +--------+
+    | 8.5    |
+    +--------+
     */
 ```
 
@@ -46,14 +49,17 @@ Some handy methods to work with the Series.
 // Return String Series Representation
     console.log(s.display)
     /*
-    ################
-    # Grades   	   #
-    ################
-    # 9.5          #
-    # 9.0          #
-    # 7.8          #
-    # 8.5          #
-    ################
+    +--------+
+    | Grades |
+    +--------+
+    | 9.5    |
+    +--------+
+    | 9      |
+    +--------+
+    | 7.8    |
+    +--------+
+    | 8.5    |
+    +--------+
     */
 
 // Return FloatsVector of Series

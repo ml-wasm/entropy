@@ -22,14 +22,17 @@ These methods are used to create new `SeriesI32`.
     let s = new SeriesI32("Fibonacci", [0, 1, 1, 2]);
     console.log(s.display); 
     /*
-    ################
-    # Fibonacci    #
-    ################
-    # 0            #
-    # 1            #
-    # 1            #
-    # 2            #
-    ################
+    +-----------+
+    | Fibonacci |
+    +-----------+
+    | 0         |
+    +-----------+
+    | 1         |
+    +-----------+
+    | 1         |
+    +-----------+
+    | 2         |
+    +-----------+
     */
 ```
 
@@ -46,14 +49,17 @@ Some handy methods to work with the Series.
 // Return String Series Representation
     console.log(s.display)
     /*
-    ################
-    # Fibonacci    #
-    ################
-    # 0            #
-    # 1            #
-    # 1            #
-    # 2            #
-    ################
+    +-----------+
+    | Fibonacci |
+    +-----------+
+    | 0         |
+    +-----------+
+    | 1         |
+    +-----------+
+    | 1         |
+    +-----------+
+    | 2         |
+    +-----------+
     */
 
 // Return IntegersVector of Series

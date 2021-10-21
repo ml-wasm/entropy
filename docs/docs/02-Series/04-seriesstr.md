@@ -20,17 +20,20 @@ These methods are used to create new `SeriesSTR`.
 
 ```js
 // Create an SeriesSTR from a given JavaScript array
-    let s = new SeriesSTR("Fruits", ["Apples", "Oranges", "Mangoes", "Banana"]);
+    let s = new SeriesSTR("Fruits", ["Apples", "Orange", "Mango", "Banana"]);
     console.log(s.display); 
     /*
-    ################
-    # Fruits       #
-    ################
-    # "Apples"     #
-    # "Oranges"    #
-    # "Mangoes"    #
-    # "Banana"     #
-    ################
+    +---------+
+    | Fruits  |
+    +---------+
+    | Apples  |
+    +---------+
+    | Orange  |
+    +---------+
+    | Mango   |
+    +---------+
+    | Banana  |
+    +---------+
     */
 ```
 
@@ -40,26 +43,29 @@ Some handy methods to work with the Series.
 
 ```js
 // Return Json representation of Series
-    let s = new SeriesSTR("Fruits", ["Apples", "Oranges", "Mangoes", "Banana"]);
+    let s = new SeriesSTR("Fruits", ["Apple", "Orange", "Mango", "Banana"]);
     console.log(s.toJson());
 	// { name: "Fruits", data: Array(4)}
 
 // Return String Series Representation
     console.log(s.display)
     /*
-    ################
-    # Fruits       #
-    ################
-    # "Apples"     #
-    # "Oranges"    #
-    # "Mangoes"    #
-    # "Banana"     #
-    ################
+    +---------+
+    | Fruits  |
+    +---------+
+    | Apples  |
+    +---------+
+    | Orange  |
+    +---------+
+    | Mango   |
+    +---------+
+    | Banana  |
+    +---------+
     */
 
 // Return SeriesVector of Series
     console.log(s.data())
-    // ["Apples", "Oranges", "Mangoes", "Banana"]
+    // ["Apples", "Orange", "Mango", "Banana"]
 ```
 
 ## Utility Methods
@@ -68,7 +74,7 @@ Basic getters and setters.
 
 ```js
 // Create an SeriesSTR from a given JavaScript array
-    let s = new SeriesSTR("Fruits", ["Apples", "Oranges", "Mangoes", "Banana"]);
+    let s = new SeriesSTR("Fruits", ["Apples", "Orange", "Mango", "Banana"]);
 
 // Get the length of the array
     console.log(s.len()); 
@@ -76,17 +82,17 @@ Basic getters and setters.
 
 // Set the given value at the specified index
     s.set(0, "Watermelon"); 
-    // ["Watermelon", "Oranges", "Mangoes", "Banana"]
+    // ["Watermelon", "Orange", "Mango", "Banana"]
     console.log(s.display) 
     // Use to view Series in console
 
 // Get the value at the specified index
     console.log(s.get(2));
-    // Mangoes
+    // Mango
 
 // Swap the values at the specified indices
     s.swap(0, 1); 
-    // ["Oranges", "Watermelon", "Mangoes", "Banana"] 
+    // ["Orange", "Watermelon", "Mango", "Banana"] 
     console.log(s.display); 
     // Use to view Series in console
 ```
@@ -105,38 +111,38 @@ the operation while the "impure" version actually changes the `SeriesVector`.
 
 ```js
 // Create an SeriesSTR from a given JavaScript array
-    let s = new SeriesSTR("Fruits", ["Apples", "Oranges", "Mangoes", "Banana"]);
+    let s = new SeriesSTR("Fruits", ["Apples", "Orange", "Mango", "Banana"]);
 
 // Reverse the Series Data
     s.reverse(); 
-    // ["Banana", "Mangoes", "Oranges", "Apples"] (without return)
+    // ["Banana", "Mango", "Orange", "Apples"] (without return)
     console.log(s.reversed().data); 
-    // ["Banana", "Mangoes", "Oranges", "Apples"]
+    // ["Banana", "Mango", "Orange", "Apples"]
 
 // Append an element to the Series
     s.append("Watermelon"); 
-    // ["Apples", "Oranges", "Mangoes", "Banana", "Watermelon"] (without return)
+    // ["Apples", "Orange", "Mango", "Banana", "Watermelon"] (without return)
     console.log(s.appended(33).data) 
-    // ["Apples", "Oranges", "Mangoes", "Banana", "Watermelon"]
+    // ["Apples", "Orange", "Mango", "Banana", "Watermelon"]
 
 // Extend the SeriesVector with another
     s.extend(["Cherry", "Strawberry"]); 
-    // ["Apples", "Oranges", "Mangoes", "Banana", "Watermelon", "Cherry", "Strawberry"] (without return)   
+    // ["Apples", "Orange", "Mango", "Banana", "Watermelon", "Cherry", "Strawberry"] (without return)   
     console.log(s.extended([55, 55]).data); 
-    // ["Apples", "Oranges", "Mangoes", "Banana", "Watermelon", "Cherry", "Strawberry"]
+    // ["Apples", "Orange", "Mango", "Banana", "Watermelon", "Cherry", "Strawberry"]
 
 // Insert the given element at the specified index
     s.insert(0, "Peaches"); 
-    // ["Apples", "Oranges", "Mangoes", "Banana", "Watermelon", "Cherry", "Strawberry", "Peaches"] 
+    // ["Apples", "Orange", "Mango", "Banana", "Watermelon", "Cherry", "Strawberry", "Peaches"] 
 	// (without return)
     console.log(s.inserted(0, 11).data);
-    // ["Apples", "Oranges", "Mangoes", "Banana", "Watermelon", "Cherry", "Strawberry", "Peaches"]
+    // ["Apples", "Orange", "Mango", "Banana", "Watermelon", "Cherry", "Strawberry", "Peaches"]
 
 // Removes an element from the specified index
     console.log(s.splice(2)); 
-    // "Mangoes"
+    // "Mango"
 
 // Remove the value at the specified index and return the array
     console.log(s.spliced(4)[0].data);
-    // ["Apples", "Oranges", "Banana", "Watermelon", "Strawberry", "Peaches"]
+    // ["Apples", "Orange", "Banana", "Watermelon", "Strawberry", "Peaches"]
 ```
