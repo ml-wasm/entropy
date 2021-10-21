@@ -3,6 +3,8 @@ use wasm_bindgen::prelude::*;
 pub mod dataframe;
 pub mod series;
 pub mod series_reader;
+#[macro_use]
+extern crate prettytable;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.

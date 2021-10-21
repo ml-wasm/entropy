@@ -4,6 +4,7 @@ use super::Series;
 use crate::series::floats::SeriesF64;
 use crate::series::integers::SeriesI32;
 use crate::series::strings::SeriesSTR;
+use prettytable::{Cell, Row, Table};
 use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
 
@@ -235,29 +236,8 @@ impl DataFrame {
         val
     }
 
-    #[wasm_bindgen(getter,js_name = display)]
-    pub fn show(&self) -> String {
-        let map = &self.data;
-        let mut res: String = String::from("");
-        self.index.iter().for_each(|f| {
-            let ser = &map[f];
-            match &ser {
-                Series::Integers(value) => {
-                    res.push_str(&value.show());
-                }
-                Series::Floats(value) => {
-                    res.push_str(&value.show());
-                }
-                Series::Strings(value) => {
-                    res.push_str(&value.show());
-                }
-            }
-        });
-        res
-    }
-
     #[wasm_bindgen(js_name = head)]
-    pub fn head(&self,  value: Option<usize>) -> js_sys::Array {
+    pub fn head(&self, value: Option<usize>) -> js_sys::Array {
         let df = js_sys::Array::new();
         let map = &self.data;
         for i in 0..value.unwrap_or(5) {
@@ -285,7 +265,7 @@ impl DataFrame {
     }
 
     #[wasm_bindgen(js_name = tail)]
-    pub fn tail(&self,  value: Option<usize>) -> js_sys::Array {
+    pub fn tail(&self, value: Option<usize>) -> js_sys::Array {
         let n = self.num_rows();
         let df = js_sys::Array::new();
         let map = &self.data;
@@ -313,34 +293,70 @@ impl DataFrame {
         df
     }
 
-    #[wasm_bindgen(getter,js_name = displayTable)]
-    pub fn show_table(&self) -> js_sys::Array {
-        let n = self.num_rows();
-        let array_col = js_sys::Array::new();
+    // #[wasm_bindgen(getter,js_name = displayTable)]
+    // pub fn show_table(&self) -> js_sys::Array {
+    //     let n = self.num_rows();
+    //     let array_col = js_sys::Array::new();
+    //     let map = &self.data;
+    //     for i in 0..n {
+    //         let array_row = js_sys::Array::new();
+    //         self.index.iter().for_each(|f| {
+    //             let ser = &map[f];
+    //             match ser {
+    //                 Series::Integers(x) => {
+    //                     let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+    //                     array_row.push(&val);
+    //                 }
+    //                 Series::Floats(x) => {
+    //                     let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+    //                     array_row.push(&val);
+    //                 }
+    //                 Series::Strings(x) => {
+    //                     let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+    //                     array_row.push(&val);
+    //                 }
+    //             };
+    //         });
+    //         array_col.push(&array_row);
+    //     }
+
+    //     array_col
+    // }
+
+    #[wasm_bindgen(getter,js_name = display)]
+    pub fn show_table(&self) -> String {
+        let mut table = Table::new();
+        let len_of_rows = self.num_rows();
+        let col_names: Vec<String> = self.index.clone();
+        let mut table_col_names: Vec<Cell> = Vec::new();
+        for j in 0..col_names.len() {
+            table_col_names.push(Cell::new(&col_names[j]));
+        }
+        table.add_row(Row::new(table_col_names));
         let map = &self.data;
-        for i in 0..n {
-            let array_row = js_sys::Array::new();
+        for i in 0..len_of_rows {
+            let mut array_row: Vec<Cell> = Vec::new();
             self.index.iter().for_each(|f| {
                 let ser = &map[f];
                 match ser {
                     Series::Integers(x) => {
-                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
-                        array_row.push(&val);
+                        let val = &x.get(i).to_string();
+                        array_row.push(Cell::new(&val));
                     }
                     Series::Floats(x) => {
-                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
-                        array_row.push(&val);
+                        let val = &x.get(i).to_string();
+                        array_row.push(Cell::new(&val));
                     }
                     Series::Strings(x) => {
-                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
-                        array_row.push(&val);
+                        let val = &x.get(i);
+                        array_row.push(Cell::new(&val));
                     }
                 };
             });
-            array_col.push(&array_row);
+            table.add_row(Row::new(array_row));
         }
 
-        array_col
+        table.to_string()
     }
 }
 

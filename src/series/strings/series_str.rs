@@ -1,7 +1,7 @@
 use super::SeriesSTR;
 use crate::dataframe::ColumnType;
 use linalg::vectors::strings::StringsVector;
-// use serde::{Deserialize, Serialize};
+use prettytable::{Cell, Row, Table};
 use wasm_bindgen::prelude::*;
 
 impl SeriesSTR {
@@ -119,33 +119,14 @@ impl SeriesSTR {
 
     #[wasm_bindgen(getter,js_name = display)]
     pub fn show(&self) -> String {
+        let mut table = Table::new();
         let col_name = self.name.clone();
-        let col_name_size = self.name.chars().count();
-        let margin = "#".repeat(8 + col_name_size);
-        let space = " ".repeat((8 + col_name_size) - col_name_size - 3);
+        table.add_row(row![col_name]);
+        for i in 0..self.len() {
+            let val = &self.data.data[i];
+            table.add_row(Row::new(vec![Cell::new(&val.to_string())]));
+        }
 
-        let mut c = 0;
-        let data: String = self
-            .data
-            .data
-            .iter()
-            .map(|x| {
-                c += 1;
-
-                if c == self.len() {
-                    let x_size = x.to_string().chars().count();
-                    let num_space = " ".repeat(8 + col_name_size - x_size - 3);
-                    x.to_string() + &num_space + &"#".to_string()
-                } else {
-                    let x_size = x.to_string().chars().count();
-                    let num_space = " ".repeat(8 + col_name_size - x_size - 3);
-                    x.to_string() + &num_space + &"#".to_string() + &"\n# ".to_string()
-                }
-            })
-            .collect();
-        format!(
-            "{}\n# {}{}#\n{}\n# {}\n{}\n",
-            margin, col_name, space, margin, data, margin
-        )
+        table.to_string()
     }
 }

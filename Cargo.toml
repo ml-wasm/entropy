@@ -24,6 +24,7 @@ js-sys = "0.3"
 wasm-bindgen-futures = "0.4.22"
 csv = "1.1"
 tera = "1.2.0"
+prettytable-rs = { version="0.8.0", git = "https://github.com/phsym/prettytable-rs", branch = "master"}
 linalg = {path="./dependencies/linalg", default-features = false}
 
 [dependencies.web-sys]
