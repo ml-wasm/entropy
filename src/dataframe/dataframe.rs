@@ -145,16 +145,40 @@ impl DataFrame {
     pub fn add_column(&mut self, datatype: ColumnType, series: JsValue) {
         match datatype {
             ColumnType::FLOAT => {
-                let ser: SeriesF64 = serde_wasm_bindgen::from_value(series).unwrap();
-                self.data.entry(ser.name()).or_insert(Series::Floats(ser));
+                let ser: Result<SeriesF64, serde_wasm_bindgen::Error> =
+                    serde_wasm_bindgen::from_value(series);
+
+                if let Ok(series) = ser {
+                    self.num_cols += 1;
+                    self.index.push(series.name());
+                    self.data
+                        .entry(series.name())
+                        .or_insert(Series::Floats(series));
+                }
             }
             ColumnType::INTEGER => {
-                let ser: SeriesI32 = serde_wasm_bindgen::from_value(series).unwrap();
-                self.data.entry(ser.name()).or_insert(Series::Integers(ser));
+                let ser: Result<SeriesI32, serde_wasm_bindgen::Error> =
+                    serde_wasm_bindgen::from_value(series);
+
+                if let Ok(series) = ser {
+                    self.num_cols += 1;
+                    self.index.push(series.name());
+                    self.data
+                        .entry(series.name())
+                        .or_insert(Series::Integers(series));
+                }
             }
             ColumnType::STR => {
-                let ser: SeriesSTR = serde_wasm_bindgen::from_value(series).unwrap();
-                self.data.entry(ser.name()).or_insert(Series::Strings(ser));
+                let ser: Result<SeriesSTR, serde_wasm_bindgen::Error> =
+                    serde_wasm_bindgen::from_value(series);
+
+                if let Ok(series) = ser {
+                    self.num_cols += 1;
+                    self.index.push(series.name());
+                    self.data
+                        .entry(series.name())
+                        .or_insert(Series::Strings(series));
+                }
             }
         }
     }
@@ -294,7 +318,7 @@ impl DataFrame {
     }
 
     // #[wasm_bindgen(getter,js_name = displayTable)]
-    // pub fn show_table(&self) -> js_sys::Array {
+    // pub fn show_table1(&self) -> js_sys::Array {
     //     let n = self.num_rows();
     //     let array_col = js_sys::Array::new();
     //     let map = &self.data;
@@ -361,7 +385,7 @@ impl DataFrame {
 }
 
 #[wasm_bindgen(js_name = readcsv)]
-pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
+pub async fn read_csv(data: web_sys::File) -> DataFrame {
     let jsdata = wasm_bindgen_futures::JsFuture::from(data.text())
         .await
         .unwrap_throw();
@@ -444,10 +468,10 @@ pub async fn read_csv(data: web_sys::File) -> Result<DataFrame, JsValue> {
     let num_cols = data_map.keys().len();
     let num_rows = rtc_map[&0].len();
 
-    Ok(DataFrame {
+    DataFrame {
         data: data_map,
         index: headers,
         num_rows,
         num_cols,
-    })
+    }
 }
