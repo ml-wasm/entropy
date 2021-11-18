@@ -1,10 +1,11 @@
 [package]
-authors = ["Archit Bhonsle <abhonsle2000@gmail.com>"]
-description = "WebAssembly implementation of vectors and matrices"
+authors = ["Dion Pinto <dionpinto000@gmail.com>"]
+description = "WebAssembly implementation of Series and Dataframes"
 edition = "2018"
-license = "APACHE"
+license = "Apache-2.0"
 name = "entropy"
-repository = "https://github.com/wasml/entropy"
+keywords = ["Series", "Dataframe"]
+repository = "https://github.com/ml-wasm/entropy"
 version = "0.1.0"
 
 [lib]
@@ -23,7 +24,7 @@ wee_alloc = {version = "0.4", optional = true}
 js-sys = "0.3"
 wasm-bindgen-futures = "0.4.22"
 csv = "1.1"
-tera = "1.2.0"
+arrow = { version = "5.0", default-features = false, features = ["csv"] }
 prettytable-rs = { version="0.8.0", git = "https://github.com/phsym/prettytable-rs", branch = "master"}
 linalg = {path="./dependencies/linalg", default-features = false}
 
@@ -33,9 +34,8 @@ features = [
   "File",
 ]
 
-
 [dev-dependencies]
 wasm-bindgen-test = "0.3.13"
 
 [profile.release]
-opt-level = "s"
+opt-level = 3
