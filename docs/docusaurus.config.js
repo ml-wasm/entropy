@@ -15,7 +15,7 @@ module.exports = {
   trailingSlash: false,
   themeConfig: {
     navbar: {
-      title: "wasml/entropy",
+      title: "ml-wasm/entropy",
       logo: {
         alt: "My Site Logo",
         src: "img/wasml.png",
