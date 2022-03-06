@@ -6,7 +6,7 @@ license = "Apache-2.0"
 name = "entropy"
 keywords = ["Series", "Dataframe"]
 repository = "https://github.com/ml-wasm/entropy"
-version = "0.1.0"
+version = "0.1.4"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -27,6 +27,7 @@ csv = "1.1"
 arrow = { version = "5.0", default-features = false, features = ["csv"] }
 prettytable-rs = { version="0.8.0", git = "https://github.com/phsym/prettytable-rs", branch = "master"}
 linalg = {path="./dependencies/linalg", default-features = false}
+
 
 [dependencies.web-sys]
 version = "0.3"

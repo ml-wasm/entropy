@@ -317,35 +317,35 @@ impl DataFrame {
         df
     }
 
-    // #[wasm_bindgen(getter,js_name = displayTable)]
-    // pub fn show_table1(&self) -> js_sys::Array {
-    //     let n = self.num_rows();
-    //     let array_col = js_sys::Array::new();
-    //     let map = &self.data;
-    //     for i in 0..n {
-    //         let array_row = js_sys::Array::new();
-    //         self.index.iter().for_each(|f| {
-    //             let ser = &map[f];
-    //             match ser {
-    //                 Series::Integers(x) => {
-    //                     let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
-    //                     array_row.push(&val);
-    //                 }
-    //                 Series::Floats(x) => {
-    //                     let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
-    //                     array_row.push(&val);
-    //                 }
-    //                 Series::Strings(x) => {
-    //                     let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
-    //                     array_row.push(&val);
-    //                 }
-    //             };
-    //         });
-    //         array_col.push(&array_row);
-    //     }
+    #[wasm_bindgen(getter,js_name = toArrays)]
+    pub fn show_table1(&self) -> js_sys::Array {
+        let n = self.num_rows();
+        let array_col = js_sys::Array::new();
+        let map = &self.data;
+        for i in 0..n {
+            let array_row = js_sys::Array::new();
+            self.index.iter().for_each(|f| {
+                let ser = &map[f];
+                match ser {
+                    Series::Integers(x) => {
+                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+                        array_row.push(&val);
+                    }
+                    Series::Floats(x) => {
+                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+                        array_row.push(&val);
+                    }
+                    Series::Strings(x) => {
+                        let val = serde_wasm_bindgen::to_value(&x.get(i)).unwrap();
+                        array_row.push(&val);
+                    }
+                };
+            });
+            array_col.push(&array_row);
+        }
 
-    //     array_col
-    // }
+        array_col
+    }
 
     #[wasm_bindgen(getter,js_name = display)]
     pub fn show_table(&self) -> String {

@@ -1,0 +1,10 @@
+table {
+  margin: 0 auto;
+  width: 50%;
+  border-collapse: collapse;
+}
+
+#container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

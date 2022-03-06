@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dataframes</title>
-</head>
-<body>
-  <div id="container"></div>
-  <script type="module" src="index.js">
-  </script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Dataframes</title>
+  </head>
+  <body>
+    <div id="container">
+      <script type="module">
+        import sizes from "./index.js";
 
+        for (let i = 1; i <= sizes.length; i++) {
+          const dfTime = document.createElement("div");
+          dfTime.setAttribute("id", "dfTime" + i);
 
-</body>
+          const sTime = document.createElement("div");
+          sTime.setAttribute("id", "sTime" + i);
+
+          const df = document.createElement("div");
+          df.setAttribute("id", "dataframe" + i);
+
+          const s = document.createElement("div");
+          s.setAttribute("id", "series" + i);
+
+          const element = document.getElementById("container");
+          element.appendChild(dfTime);
+          element.appendChild(sTime);
+          element.appendChild(df);
+          element.appendChild(s);
+        }
+      </script>
+    </div>
+    <script type="module" src="index.js"></script>
+    <!-- danfo.js -->
+    <script src="https://cdn.jsdelivr.net/npm/danfojs@1.0.2/lib/bundle.min.js"></script>
+  </body>
 </html>
